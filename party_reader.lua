@@ -1,6 +1,6 @@
 function pokemonPartyRetriever()
 
-local A,B,C,D,littleEndian,partyOffset,party,X,pokemon1,pokemon2,pokemon3,pokemon4,pokemon5,pokemon6
+local A,B,C,D,littleEndian,partyOffset,party,X,pokemon1,pokemon2,pokemon3,pokemon4,pokemon5,pokemon6,partyCount
 A = memory.readbyte(0x02101D2C)
 B = memory.readbyte(0x02101D2D)
 C = memory.readbyte(0x02101D2E)
@@ -15,12 +15,25 @@ partyOffset = 0xD094
 party = littleEndian + partyOffset -- adding party offset gives address of the first pokemon
 print("Party: " .. party) 
 
-pokemon1 = memory.readbyterange(party,236) -- all addresses of first pokemon
-pokemon2 = memory.readbyterange(party + 236,236)
-pokemon3 = memory.readbyterange(party + 472,236)
-pokemon4 = memory.readbyterange(party + 708,236)
-pokemon5 = memory.readbyterange(party + 944,236)
-pokemon6 = memory.readbyterange(party + 1180,236)
+partyCount = memory.readbyte(party - 4)
+print("Party size:", partyCount)
+
+pokemon1 = memory.readbyterange(party,236)
+if partyCount >= 2 then
+    pokemon2 = memory.readbyterange(party + 236,236)
+end
+if partyCount >= 3 then
+    pokemon3 = memory.readbyterange(party + 472,236)
+end
+if partyCount >= 4 then
+    pokemon4 = memory.readbyterange(party + 708,236)
+end
+if partyCount >= 5 then
+    pokemon5 = memory.readbyterange(party + 944,236)
+end
+if partyCount >= 6 then
+    pokemon6 = memory.readbyterange(party + 1180,236)
+end
 
 print ("1st Party Member: ", pokemon1)
 print ("2nd Party Member: ", pokemon2)
@@ -29,41 +42,43 @@ print ("4th Party Member: ", pokemon4)
 print ("5th Party Member: ", pokemon5)
 print ("6th Party Member: ", pokemon6)
 
+
 return pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6
 end   
 
 pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6 = pokemonPartyRetriever()
 
 local file = io.open("C:/Users/Sean McGrath/Desktop/Year 4 Final Project/Project/Lua/data/live_data.json", "w")
+
 pokemon1TableString = table.concat(pokemon1, ",")
-pokemon2TableString = table.concat(pokemon2, ",")
-pokemon3TableString = table.concat(pokemon3, ",")
-pokemon4TableString = table.concat(pokemon4, ",")
-pokemon5TableString = table.concat(pokemon5, ",")
-pokemon6TableString = table.concat(pokemon6, ",")
-
 file:write('{"party": [')
-
 file:write("\n")
-file:write("[", pokemon1TableString, "],")
-file:write("\n")
+file:write("[", pokemon1TableString, "]")
 
-file:write("[", pokemon2TableString, "],")
-file:write("\n")
+if pokemon2 ~= nil then
+    pokemon2TableString = table.concat(pokemon2, ",")
+    file:write(",\n[", pokemon2TableString, "]")
+end
 
-file:write("[", pokemon3TableString, "],")
-file:write("\n")
+if pokemon3 ~= nil then
+    pokemon3TableString = table.concat(pokemon3, ",")
+    file:write(",\n[", pokemon3TableString, "]")
+end
 
-file:write("[", pokemon4TableString, "],")
-file:write("\n")
+if pokemon4 ~= nil then
+    pokemon4TableString = table.concat(pokemon4, ",")
+    file:write(",\n[", pokemon4TableString, "]")
+end
 
-file:write("[", pokemon5TableString, "],")
-file:write("\n")
+if pokemon5 ~= nil then
+    pokemon5TableString = table.concat(pokemon5, ",")
+    file:write(",\n[", pokemon5TableString, "]")
+end
 
-file:write("[", pokemon6TableString, "]")
-file:write("\n")
+if pokemon6 ~= nil then
+    pokemon6TableString = table.concat(pokemon6, ",")
+    file:write(",\n[", pokemon6TableString, "]")
+end
 
-file:write("]")
-file:write("}")
-
+file:write("\n]}")
 file:close()
