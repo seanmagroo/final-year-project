@@ -1,26 +1,31 @@
-from pokemon_attributes import decode_block_A
+from pokemon_attributes import decode_block_A, decode_block_B
 
 def decodePokemon(X):
 
     A, B, C, D = X[0], X[1], X[2], X[3]
     E, F = X[6], X[7]
 
-    print("PID: ", A, B, C, D)
-    print("Checksum: ", E, F)
+    # print("PID: ", A, B, C, D)
+    # print("Checksum: ", E, F)
 
     pid = A + (B * 256) + (C * 65536) + (D * 16777216)
     checkSum = E + (F * 256)
     encrypted_Data = X[8:136]
 
-    print("PID: ", pid)
-    print("Check Sum: ", checkSum)
-    print("Encrypted Data: ", encrypted_Data)
+    # print("PID: ", pid)
+    # print("Check Sum: ", checkSum)
+    # print("Encrypted Data: ", encrypted_Data)
 
     decrypted_Data = decrypt_Data(encrypted_Data, checkSum)
     blockA, blockB, blockC, blockD = unshuffle_blocks(decrypted_Data, pid)
 
     decoded_block_A = decode_block_A(blockA)
     print(decoded_block_A)
+    print()
+
+    decoded_block_B = decode_block_B(blockB)
+    print(decoded_block_B)
+    print()
 
 def decrypt_Data(encrypted_Data, seed):
 
@@ -37,8 +42,8 @@ def decrypt_Data(encrypted_Data, seed):
         decrypted_Data.append(decrypted_Value & 0xFF)
         decrypted_Data.append(decrypted_Value >> 8)   # AI generated decryption loop, decrypts the memory data for the pokemon
     
-    print("Decrypted data:", decrypted_Data)
-    print("Length:", len(decrypted_Data))
+    # print("Decrypted data:", decrypted_Data)
+    # print("Length:", len(decrypted_Data))
 
     return decrypted_Data
 
@@ -50,7 +55,7 @@ def unshuffle_blocks(decryptedData, pid):
     block3 = decryptedData[96:128]
     
     shuffleValue = ((pid >> 13) & 0x1F) % 24
-    print("Shuffle value:", shuffleValue)
+    # print("Shuffle value:", shuffleValue)
 
 
     blockOrders = [
@@ -61,7 +66,7 @@ def unshuffle_blocks(decryptedData, pid):
     ]
     
     order = blockOrders[shuffleValue]
-    print("Block order:", order)
+    # print("Block order:", order)
     blocks = [block0, block1, block2, block3]
 
     blockA = blocks[order.index("A")]

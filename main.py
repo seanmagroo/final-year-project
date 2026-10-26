@@ -6,7 +6,7 @@ pokemon1TableNumber = pokemon1TableString.split(",")
 
 for i in range(len(pokemon1TableNumber)):
     pokemon1TableNumber[i] = int(pokemon1TableNumber[i])
-print(pokemon1TableNumber)
+#print(pokemon1TableNumber)
 file.close()
 
 decodePokemon(pokemon1TableNumber)
