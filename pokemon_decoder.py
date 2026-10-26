@@ -1,6 +1,10 @@
+import json
 from pokemon_attributes import decode_block_A, decode_block_B
 
 def decodePokemon(X):
+
+    with open("data/pokemon.json") as file:
+        pokemonData = json.load(file)
 
     A, B, C, D = X[0], X[1], X[2], X[3]
     E, F = X[6], X[7]
@@ -20,10 +24,18 @@ def decodePokemon(X):
     blockA, blockB, blockC, blockD = unshuffle_blocks(decrypted_Data, pid)
 
     decoded_block_A = decode_block_A(blockA)
+    decoded_block_B = decode_block_B(blockB)
+
+    species_Id = decoded_block_A["species_Id"]
+
+    print()
+    print(pokemonData[str(species_Id)]["name"])
+    print(pokemonData[str(species_Id)]["types"])
+    print()
+    print(pokemonData[str(species_Id)]["baseStats"])
+    print()
     print(decoded_block_A)
     print()
-
-    decoded_block_B = decode_block_B(blockB)
     print(decoded_block_B)
     print()
 

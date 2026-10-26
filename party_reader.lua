@@ -24,7 +24,7 @@ end
 
 pokemon1 = partyPokeOne()
 
-local file = io.open("C:/Users/Sean McGrath/Desktop/Year 4 Final Project/Project/Lua/liveData/live_data.txt", "w")
+local file = io.open("C:/Users/Sean McGrath/Desktop/Year 4 Final Project/Project/Lua/data/live_data.txt", "w")
 pokemon1TableString = table.concat(pokemon1, ",")
 file:write(pokemon1TableString)
 file:close()
