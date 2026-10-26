@@ -1,0 +1,8 @@
+*.nds
+*.sav
+*.dsv
+*.dll
+
+__pycache__/
+*.pyc
+.venv/
