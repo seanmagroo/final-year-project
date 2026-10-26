@@ -20,7 +20,6 @@ X = memory.readbyterange(party,236) -- all addresses of first pokemon
 print ("1st Party Member: ", X)
 
 return X
-
 end   
 
 pokemon1 = partyPokeOne()
