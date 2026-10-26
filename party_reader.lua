@@ -24,4 +24,8 @@ return X
 end   
 
 pokemon1 = partyPokeOne()
-pokeName(pokemon1) -- In future bring this logic into the python script
+
+local file = io.open("C:/Users/Sean McGrath/Desktop/Year 4 Final Project/Project/Lua/liveData/live_data.txt", "w")
+pokemon1TableString = table.concat(pokemon1, ",")
+file:write(pokemon1TableString)
+file:close()
