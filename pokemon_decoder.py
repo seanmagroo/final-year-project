@@ -14,23 +14,46 @@ def decodePokemon(X):
 
     pid = A + (B * 256) + (C * 65536) + (D * 16777216)
     checkSum = E + (F * 256)
-    encrypted_Data = X[8:136]
+    encrypted_Data_Blocks = X[8:136]
 
     # print("PID: ", pid)
     # print("Check Sum: ", checkSum)
     # print("Encrypted Data: ", encrypted_Data)
 
-    decrypted_Data = decrypt_Data(encrypted_Data, checkSum)
-    blockA, blockB, blockC, blockD = unshuffle_blocks(decrypted_Data, pid)
+    decrypted_Data_Blocks = decrypt_Data(encrypted_Data_Blocks, checkSum)
+    blockA, blockB, blockC, blockD = unshuffle_blocks(decrypted_Data_Blocks, pid)
 
     decoded_block_A = decode_block_A(blockA)
     decoded_block_B = decode_block_B(blockB)
+
+    encrypted_Data = X[136:236]
+    decrypted_Data = decrypt_Data(encrypted_Data, pid)
+    level = decrypted_Data[4]
+    currentHp = decrypted_Data[6] + decrypted_Data[7] * 256
+    maxHp = decrypted_Data[8] + decrypted_Data[9] * 256
+
+
+    statusFlag = decrypted_Data[0]
+    status = "Healthy"
+    if statusFlag & 0x07: # Sleep occupies 3 bits
+        status = "Sleep"
+    elif statusFlag & 0x08:
+        status = "Poisoned"
+    elif statusFlag & 0x10:
+        status = "Burned"
+    elif statusFlag & 0x20:
+        status = "Frozen"
+    elif statusFlag & 0x40:
+        status = "Paralyzed"
+    elif statusFlag & 0x80:
+        status = "Badly Poisoned"
 
     species_Id = decoded_block_A["species_Id"]
 
     print()
     print(pokemonData[str(species_Id)]["name"])
     print(pokemonData[str(species_Id)]["types"])
+    print(f"Level: {level} | HP: {currentHp} /{maxHp} | Status: {status}")
     print()
     print(pokemonData[str(species_Id)]["baseStats"])
     print()
