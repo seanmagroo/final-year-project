@@ -13,9 +13,12 @@ while True:
 
     if previousParty != liveData["party"]:
         os.system("cls")
+        liveParty = []
+        
         for pokemon in liveData["party"]:
-            decodePokemon(pokemon)
+            liveParty.append(decodePokemon(pokemon))
             print("#########################################")
+        
         previousParty = liveData["party"]
 
     time.sleep(2)

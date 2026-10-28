@@ -62,6 +62,19 @@ def decodePokemon(X):
     print(decoded_block_B)
     print()
 
+    return{
+    "species_Id": species_Id,
+    "name": pokemonData[str(species_Id)]["name"],
+    "types": pokemonData[str(species_Id)]["types"],
+    "level": level,
+    "currentHp": currentHp,
+    "maxHp": maxHp,
+    "status": status,
+    "baseStats": (pokemonData[str(species_Id)]["baseStats"]),
+    "blockA": decoded_block_A,
+    "blockB": decoded_block_B
+    }
+
 def decrypt_Data(encrypted_Data, seed):
 
     decrypted_Data = []
