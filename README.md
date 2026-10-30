@@ -66,7 +66,7 @@ Testing without DeSmuME:
 
 &#x09;	2.Move live\_data.json to Lua/data/liveDataSamples
 
-&#x09;	3.copy either sample1.json or sample2.json into Lua/data folder
+&#x09;	3.copy either sample1.json or sample2.json into Lua/data folder and rename it to: live\_data.json
 
 &#x09;	4.Frontend will display the new data set in the UI
 
