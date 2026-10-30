@@ -1,3 +1,96 @@
 .app {
+  max-width: 1400px;
+  margin: 0 auto;
   padding: 24px;
+}
+
+.app h1 {
+  margin-bottom: 30px;
+}
+
+.party-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.pokemon-card {
+  background-color: #253045;
+  border: 1px solid #39465d;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.pokemon-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.pokemon-header h2 {
+  margin: 0;
+}
+
+.pokemon-header p {
+  margin: 6px 0;
+  color: #cbd5e1;
+}
+
+.pokemon-sprite {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.hp-section {
+  margin-bottom: 20px;
+}
+
+.hp-section progress {
+  width: 100%;
+  height: 14px;
+  accent-color: #4ade80;
+}
+
+.data-section {
+  margin-top: 20px;
+}
+
+.data-section h3 {
+  border-bottom: 1px solid #475569;
+  padding-bottom: 8px;
+  font-size: 16px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.stat {
+  background-color: #1a2334;
+  padding: 10px;
+  border-radius: 6px;
+  min-width: 0;
+}
+
+.stat-label {
+  display: block;
+  color: #94a3b8;
+  font-size: 12px;
+  margin-bottom: 5px;
+  overflow-wrap: anywhere;
+}
+
+.stat-value {
+  font-size: 15px;
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+.error {
+  color: #f87171;
 }
