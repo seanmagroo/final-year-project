@@ -44,13 +44,31 @@ You can also try this command if the previous does not work: npm.cmd run dev
 
 
 
-Open the App: 
+Open the App:
 
 http://localhost:5173
 
 
 
 Keep emulator, Lua script, backend and frontend running while using the tracker
+
+
+
+Testing without DeSmuME:
+
+&#x09;Two sample Pokémon parties are provided in Lua/data as sample1.json and sample2.json.
+
+
+
+&#x09;To test without DeSmuME
+
+&#x09;	1.Start backend and front end as instructed above
+
+&#x09;	2.Move live\_data.json to Lua/data/liveDataSamples
+
+&#x09;	3.copy either sample1.json or sample2.json into Lua/data folder
+
+&#x09;	4.Frontend will display the new data set in the UI
 
 
 
@@ -67,4 +85,8 @@ NOTE:	The Renegade Platinum ROM and DeSmuMe emulator is not included with this a
 
 
 &#x09;Due to copyright reasons, I cannot provide a download link for a Pokémon Platinum ROM
+
+
+
+
 
