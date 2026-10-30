@@ -1,3 +1,10 @@
+local scriptSource = debug.getinfo(1, "S").source
+local scriptFolder = scriptSource:match("^@(.+[\\/])")
+
+assert(scriptFolder, "Could not determine Lua script folder")
+
+local outputPath = scriptFolder .. "data/live_data.json"
+
 function pokemonPartyRetriever()
 
     local A,B,C,D,littleEndian,partyOffset,party,X,pokemon1,pokemon2,pokemon3,pokemon4,pokemon5,pokemon6,partyCount
@@ -56,7 +63,10 @@ while true do
 
         pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6 = pokemonPartyRetriever()
 
-        local file = io.open("C:/Users/Sean McGrath/Desktop/Year 4 Final Project/Project/Lua/data/live_data.json", "w")
+        local file = io.open(outputPath, "w")
+        if not file then
+            error("Unable to open live_data.json: " .. tostring(err))
+        end
 
         pokemon1TableString = table.concat(pokemon1, ",")
         file:write('{"party": [')

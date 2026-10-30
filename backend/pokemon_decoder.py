@@ -1,9 +1,13 @@
 import json
 from pokemon_attributes import decode_block_A, decode_block_B
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+POKEMON_DATA_PATH = PROJECT_ROOT / "Lua" / "data" / "pokemon.json"
 
 def decodePokemon(X):
 
-    with open("data/pokemon.json") as file:
+    with POKEMON_DATA_PATH.open("r", encoding="utf-8") as file:
         pokemonData = json.load(file)
 
     A, B, C, D = X[0], X[1], X[2], X[3]
